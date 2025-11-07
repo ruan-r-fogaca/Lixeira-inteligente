@@ -35,6 +35,7 @@
   </style>
 </head>
 <body>
+    <p>Teste</p>
   <h1>🚮 Lixeira Inteligente</h1>
   <div class="nivel">Nível atual: <span id="nivel">--</span>%</div>
   <div class="barra"><div id="progresso" class="progresso"></div></div>
@@ -49,10 +50,11 @@
       const nivel = parseFloat(dados.field1);
       document.getElementById("nivel").textContent = nivel.toFixed(1);
       document.getElementById("progresso").style.width = nivel + "%";
+      
     }
 
     atualizar();
-    setInterval(atualizar, 5000); // atualiza a cada 5s
+    setInterval(atualizar, 5000); // atualiza a cada 5s 
   </script>
 </body>
 </html>
