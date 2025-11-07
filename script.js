@@ -5,7 +5,7 @@
 // CONFIGURAÇÃO: substitua pelo ID do seu canal ThingSpeak
 const CHANNEL_ID = "3151361";
 const FIELD = "1";
-const UPDATE_INTERVAL = 5000; // 5 segundos
+const UPDATE_INTERVAL = 1500; // 5 segundos
 
 const nivelEl = document.getElementById("nivel");
 const mensagemEl = document.getElementById("mensagem");
