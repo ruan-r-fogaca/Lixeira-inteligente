@@ -1,127 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lixeira Inteligente - Painel IoT</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lixeira Inteligente Conectada</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header>
-    <h1>🗑️ Lixeira Inteligente</h1>
-    <p>Monitoramento em tempo real via ESP32 + ThingSpeak</p>
-  </header>
+  <div class="container">
+    <h1>🗑️ Lixeira Inteligente Conectada</h1>
+    <p class="descricao">Monitoramento em tempo real via ThingSpeak</p>
 
-  <main>
-    <section class="status">
-      <div class="gauge">
-        <div id="nivel-texto">--%</div>
-        <svg viewBox="0 0 36 36" class="circular-chart">
-          <path class="circle-bg"
-                d="M18 2.0845
-                   a 15.9155 15.9155 0 0 1 0 31.831
-                   a 15.9155 15.9155 0 0 1 0 -31.831"/>
-          <path id="circle" class="circle"
-                stroke-dasharray="0, 100"
-                d="M18 2.0845
-                   a 15.9155 15.9155 0 0 1 0 31.831
-                   a 15.9155 15.9155 0 0 1 0 -31.831"/>
-        </svg>
-      </div>
-      <h2 id="status-texto">Carregando...</h2>
-    </section>
+    <div class="status">
+      <h2 id="nivel">--%</h2>
+      <p id="mensagem">Carregando...</p>
+    </div>
 
-    <section class="grafico">
-      <h2>📈 Histórico de Nível</h2>
-      <canvas id="graficoNivel"></canvas>
-    </section>
-  </main>
+    <canvas id="grafico"></canvas>
 
-  <footer>
-    <p>Desenvolvido por Ruan Rodrigues 💡 com ESP32 + ChatGPT</p>
-  </footer>
+    <footer>
+      <p>Desenvolvido por <strong>Ruan Rodrigues + ChatGPT</strong> 🚀</p>
+    </footer>
+  </div>
 
-  <script>
-    const channelID = "2844454"; // 🔁 Substitua pelo ID do seu canal
-    const field = 1;
-    const updateInterval = 5000; // 5 segundos
-
-    async function obterDados() {
-      const url = `https://api.thingspeak.com/channels/${channelID}/fields/${field}.json?results=20`;
-      const resposta = await fetch(url);
-      const dados = await resposta.json();
-      return dados.feeds.map(feed => ({
-        valor: parseFloat(feed[`field${field}`]),
-        tempo: feed.created_at
-      }));
-    }
-
-    function atualizarGauge(nivel) {
-      const circle = document.getElementById("circle");
-      const texto = document.getElementById("nivel-texto");
-      const status = document.getElementById("status-texto");
-
-      texto.textContent = `${nivel.toFixed(1)}%`;
-      const dash = (nivel / 100) * 100;
-      circle.style.strokeDasharray = `${dash}, 100`;
-
-      if (nivel < 50) {
-        circle.style.stroke = "#00bcd4";
-        status.textContent = "Lixeira vazia 🟦";
-      } else if (nivel < 75) {
-        circle.style.stroke = "#ffc107";
-        status.textContent = "Nível médio 🟨";
-      } else if (nivel < 90) {
-        circle.style.stroke = "#ff9800";
-        status.textContent = "Quase cheia 🟧";
-      } else {
-        circle.style.stroke = "#f44336";
-        status.textContent = "⚠️ Lixeira cheia!";
-      }
-    }
-
-    function atualizarGrafico(ctx, dados) {
-      const valores = dados.map(d => d.valor);
-      const tempos = dados.map(d => new Date(d.tempo).toLocaleTimeString("pt-BR", {hour12: false}));
-
-      ctx.data.labels = tempos;
-      ctx.data.datasets[0].data = valores;
-      ctx.update();
-    }
-
-    async function atualizarTudo(ctx) {
-      const dados = await obterDados();
-      if (dados.length > 0) {
-        const nivelAtual = dados[dados.length - 1].valor;
-        atualizarGauge(nivelAtual);
-        atualizarGrafico(ctx, dados);
-      }
-    }
-
-    // Inicialização do gráfico
-    const ctx = new Chart(document.getElementById("graficoNivel"), {
-      type: "line",
-      data: {
-        labels: [],
-        datasets: [{
-          label: "Nível do Lixo (%)",
-          data: [],
-          borderWidth: 2,
-          borderColor: "#00bcd4",
-          fill: true,
-          backgroundColor: "rgba(0,188,212,0.1)"
-        }]
-      },
-      options: {
-        scales: {
-          y: { min: 0, max: 100, title: { display: true, text: "%" } }
-        }
-      }
-    });
-
-    setInterval(() => atualizarTudo(ctx), updateInterval);
-    atualizarTudo(ctx);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

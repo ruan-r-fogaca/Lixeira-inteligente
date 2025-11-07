@@ -1,61 +1,52 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background: #f6f8fa;
-    color: #222;
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
   }
   
-  header {
-    background: #00bcd4;
-    color: white;
-    padding: 1.2rem 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   }
   
-  main {
-    padding: 1rem;
+  h1 {
+    margin-bottom: 10px;
   }
   
-  .gauge {
-    position: relative;
-    width: 150px;
-    margin: 1rem auto;
+  .descricao {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 30px;
   }
   
-  .circular-chart {
-    width: 150px;
-    height: 150px;
+  .status {
+    background: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
   }
   
-  .circle-bg {
-    fill: none;
-    stroke: #eee;
-    stroke-width: 3.8;
+  #nivel {
+    font-size: 48px;
+    margin: 0;
   }
   
-  .circle {
-    fill: none;
-    stroke-width: 2.8;
-    stroke-linecap: round;
-    transition: stroke-dasharray 0.5s, stroke 0.5s;
-  }
-  
-  #nivel-texto {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-    font-weight: bold;
+  #mensagem {
+    font-size: 18px;
+    margin: 10px 0 0 0;
   }
   
   footer {
-    margin-top: 2rem;
-    background: #222;
-    color: white;
-    padding: 1rem;
-    font-size: 0.9rem;
+    margin-top: 30px;
+    font-size: 12px;
+    opacity: 0.7;
   }
   
