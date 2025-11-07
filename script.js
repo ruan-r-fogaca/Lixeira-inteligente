@@ -3,7 +3,7 @@
 // ===============================
 
 // CONFIGURAÇÃO: substitua pelo ID do seu canal ThingSpeak
-const CHANNEL_ID = "5SLL6W2PQBHABTFU";
+const CHANNEL_ID = "3151361";
 const FIELD = "1";
 const UPDATE_INTERVAL = 5000; // 5 segundos
 
